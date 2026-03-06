@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Notification Fetcher</string>
+    <string name="app_title">Notification Collector</string>
+    <string name="btn_enable">Enable Collection</string>
+    <string name="status_waiting">Status: Waiting for permission...</string>
+</resources>
