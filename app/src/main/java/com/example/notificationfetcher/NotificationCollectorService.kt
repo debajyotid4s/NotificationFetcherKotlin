@@ -1,10 +1,13 @@
 package com.example.notificationfetcher
 
 import android.app.Notification
+import android.app.PendingIntent
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,6 +21,8 @@ class NotificationCollectorService : NotificationListenerService() {
     override fun onCreate() {
         super.onCreate()
         database = AppDatabase.getDatabase(this)
+        NotificationChannelHelper.createChannel(this)
+        startForeground(FOREGROUND_NOTIFICATION_ID, buildForegroundNotification())
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
@@ -69,5 +74,26 @@ class NotificationCollectorService : NotificationListenerService() {
             dao.insert(entity)
             Log.d(TAG, "Inserted: $appName - $title: $text")
         }
+    }
+
+    private fun buildForegroundNotification(): android.app.Notification {
+        val openAppIntent = PendingIntent.getActivity(
+            this,
+            0,
+            Intent(this, MainActivity::class.java),
+            PendingIntent.FLAG_IMMUTABLE
+        )
+        return NotificationCompat.Builder(this, NotificationChannelHelper.CHANNEL_ID)
+            .setContentTitle(getString(R.string.app_name))
+            .setContentText(getString(R.string.notif_service_running))
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentIntent(openAppIntent)
+            .setOngoing(true)
+            .setCategory(NotificationCompat.CATEGORY_SERVICE)
+            .build()
+    }
+
+    companion object {
+        private const val FOREGROUND_NOTIFICATION_ID = 1
     }
 }

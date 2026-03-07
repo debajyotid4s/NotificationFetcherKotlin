@@ -3,4 +3,10 @@
     <string name="app_title">Notification Collector</string>
     <string name="btn_enable">Enable Collection</string>
     <string name="status_waiting">Status: Waiting for permission...</string>
+    <string name="export_title">Export Data</string>
+    <string name="btn_export_json">Export as JSON</string>
+    <string name="btn_export_csv">Export as CSV</string>
+    <string name="btn_export_db">Export Database (.db)</string>
+    <string name="notif_service_running">Capturing notifications in the background.</string>
+    <string name="notif_listener_description">This app collects and stores notification metadata locally for personal research and export.</string>
 </resources>
