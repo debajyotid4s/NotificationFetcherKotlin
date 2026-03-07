@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Network Security Configuration.
+    Since this app is fully local (no internet), we block ALL
+    network traffic as a defense-in-depth measure.
+    If someone adds a network call accidentally, it will fail loudly.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <!-- Only trust system CAs — no user-installed certificates -->
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

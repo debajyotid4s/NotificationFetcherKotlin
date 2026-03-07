@@ -1,6 +1,31 @@
 <resources>
     <string name="app_name">Notification Fetcher</string>
     <string name="app_title">Notification Collector</string>
+
+    <!-- Permission button states -->
     <string name="btn_enable">Enable Collection</string>
-    <string name="status_waiting">Status: Waiting for permission...</string>
+    <string name="btn_permission_granted">Permission Granted ✓</string>
+
+    <!-- Status messages -->
+    <string name="status_waiting">Status: Waiting for permission…</string>
+    <string name="status_running">Status: RUNNING — Capturing notifications.</string>
+    <string name="status_stopped">Status: STOPPED — Permission required.</string>
+
+    <!-- Export section -->
+    <string name="export_title">📤 Export Collected Data</string>
+    <string name="btn_export_json">Export as JSON</string>
+    <string name="btn_export_csv">Export as CSV (Excel)</string>
+    <string name="btn_export_db">Export Raw Database (.db)</string>
+    <string name="export_in_progress">Exporting… please wait</string>
+    <string name="export_success">✅ Saved: %1$s</string>
+    <string name="export_failed">❌ Export failed. Try again.</string>
+
+    <!-- Foreground service notification -->
+    <string name="fg_notification_title">Notification Collector</string>
+    <string name="fg_notification_text">Running silently in background</string>
+
+    <!-- Security warnings -->
+    <string name="root_warning_title">⚠️ Security Warning</string>
+    <string name="root_warning_message">This device appears to be rooted. Your collected data may be at increased risk.</string>
+    <string name="root_warning_btn">I Understand</string>
 </resources>

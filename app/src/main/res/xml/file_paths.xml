@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    FileProvider paths configuration.
+    Defines which directories this app is allowed to share files from
+    via content:// URIs (secure, no direct file:// exposure).
+-->
 <paths>
+    <!-- Internal cache directory — for temporary export files -->
     <cache-path name="cache" path="." />
+
+    <!-- Internal files directory — for persistent exports -->
+    <files-path name="files" path="." />
 </paths>

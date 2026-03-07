@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="error_red">#F44336</color>
-    <color name="success_green">#4CAF50</color>
+
+    <!-- Status indicator colors used in MainActivity -->
+    <color name="error_red">#F44336</color>      <!-- Service stopped / permission missing -->
+    <color name="success_green">#4CAF50</color>  <!-- Service running / permission granted -->
 </resources>

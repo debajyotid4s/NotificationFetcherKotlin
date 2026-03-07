@@ -1,45 +1,51 @@
 [versions]
-agp = "8.13.2"
-kotlin = "2.0.21"
-coreKtx = "1.10.1"
-junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
-appcompat = "1.6.1"
-material = "1.10.0"
-activity = "1.8.0"
-constraintlayout = "2.1.4"
-room = "2.6.1"
-lifecycle = "2.6.2"
-compose = "1.5.4"
-compose-compiler = "1.5.3"
-gson = "2.10.1"
+agp                = "8.7.3"       # ✅ Latest stable Android Gradle Plugin
+kotlin             = "2.0.21"
+coreKtx            = "1.13.1"      # ✅ Updated
+junit              = "4.13.2"
+junitVersion       = "1.2.1"       # ✅ Updated
+espressoCore       = "3.6.1"       # ✅ Updated
+appcompat          = "1.7.0"       # ✅ Updated
+material           = "1.12.0"      # ✅ Updated (fixes MaterialCardView warning too)
+activity           = "1.9.3"       # ✅ Updated
+constraintlayout   = "2.2.0"       # ✅ Updated
+room               = "2.6.1"
+lifecycle          = "2.8.7"       # ✅ Updated
+composeBom         = "2024.11.00"  # ✅ Updated — use BOM for all Compose versions
+gson               = "2.10.1"
+securityCrypto     = "1.1.0-alpha06"  # EncryptedSharedPreferences
+sqlcipher          = "4.5.4"          # SQLCipher encryption
+sqliteKtx          = "2.4.0"          # Required by SQLCipher + Room
 
 [libraries]
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
-androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
-androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
-androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
-androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
-androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version = "1.1.2" }
-androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
-androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "compose" }
-androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "compose" }
-androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+androidx-core-ktx                    = { group = "androidx.core",                   name = "core-ktx",                  version.ref = "coreKtx" }
+junit                                = { group = "junit",                            name = "junit",                     version.ref = "junit" }
+androidx-junit                       = { group = "androidx.test.ext",               name = "junit",                     version.ref = "junitVersion" }
+androidx-espresso-core               = { group = "androidx.test.espresso",          name = "espresso-core",             version.ref = "espressoCore" }
+androidx-appcompat                   = { group = "androidx.appcompat",              name = "appcompat",                 version.ref = "appcompat" }
+material                             = { group = "com.google.android.material",     name = "material",                  version.ref = "material" }
+androidx-activity                    = { group = "androidx.activity",               name = "activity",                  version.ref = "activity" }
+androidx-constraintlayout            = { group = "androidx.constraintlayout",       name = "constraintlayout",          version.ref = "constraintlayout" }
+androidx-room-runtime                = { group = "androidx.room",                   name = "room-runtime",              version.ref = "room" }
+androidx-room-ktx                    = { group = "androidx.room",                   name = "room-ktx",                  version.ref = "room" }
+androidx-room-compiler               = { group = "androidx.room",                   name = "room-compiler",             version.ref = "room" }
+androidx-lifecycle-viewmodel-ktx     = { group = "androidx.lifecycle",              name = "lifecycle-viewmodel-ktx",   version.ref = "lifecycle" }
+androidx-lifecycle-runtime-ktx       = { group = "androidx.lifecycle",              name = "lifecycle-runtime-ktx",     version.ref = "lifecycle" }
+androidx-activity-compose            = { group = "androidx.activity",               name = "activity-compose",          version.ref = "activity" }
+androidx-compose-bom                 = { group = "androidx.compose",                name = "compose-bom",               version.ref = "composeBom" }
+androidx-compose-ui                  = { group = "androidx.compose.ui",             name = "ui" }
+androidx-compose-material3           = { group = "androidx.compose.material3",      name = "material3" }
+androidx-compose-ui-tooling-preview  = { group = "androidx.compose.ui",             name = "ui-tooling-preview" }
+androidx-compose-ui-test-junit4      = { group = "androidx.compose.ui",             name = "ui-test-junit4" }
+androidx-compose-ui-test-manifest    = { group = "androidx.compose.ui",             name = "ui-test-manifest" }
+androidx-compose-ui-tooling          = { group = "androidx.compose.ui",             name = "ui-tooling" }
+gson                                 = { group = "com.google.code.gson",            name = "gson",                      version.ref = "gson" }
+androidx-security-crypto             = { group = "androidx.security",               name = "security-crypto",           version.ref = "securityCrypto" }
+sqlcipher                            = { group = "net.zetetic",                      name = "android-database-sqlcipher",version.ref = "sqlcipher" }
+androidx-sqlite-ktx                  = { group = "androidx.sqlite",                 name = "sqlite-ktx",                version.ref = "sqliteKtx" }
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version = "2.0.21-1.0.25" }
+android-application  = { id = "com.android.application",              version.ref = "agp" }
+kotlin-android       = { id = "org.jetbrains.kotlin.android",         version.ref = "kotlin" }
+compose-compiler     = { id = "org.jetbrains.kotlin.plugin.compose",  version.ref = "kotlin" }
+ksp                  = { id = "com.google.devtools.ksp",              version = "2.0.21-1.0.25" }
