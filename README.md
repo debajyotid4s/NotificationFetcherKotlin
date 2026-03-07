@@ -107,6 +107,18 @@ Tap the export buttons inside the app to save data to:
 
 ---
 
+## 📥 Install on Any Android Device
+
+The easiest way to install the app on any Android device (no development setup required):
+
+1. Go to the [**Releases** page](https://github.com/debajyotid4s/NotificationFetcherKotlin/releases) and download the latest `app-release.apk`.
+2. On your Android device, go to **Settings → Security** (or **Settings → Apps → Special App Access → Install Unknown Apps**) and enable **Install from Unknown Sources** for your browser or file manager.
+3. Open the downloaded APK and tap **Install**.
+4. Android may show a **Play Protect** warning for apps installed outside the Play Store — tap **Install Anyway** to proceed. The app is safe; Play Protect warns about all sideloaded apps.
+5. Open the app, tap **"Enable Collection"**, and grant Notification Access.
+
+---
+
 ## ⚙️ Setup & Build
 
 ### Prerequisites
@@ -126,10 +138,41 @@ cd NotificationFetcherKotlin
 ./gradlew installDebug
 ```
 
-**Release build** (SQLCipher encrypted — for real data collection):
+**Release build** (signed APK — for distribution and real data collection):
+
+1. Generate a keystore (one-time setup):
+   ```bash
+   keytool -genkey -v -keystore release.keystore -alias notificationfetcher \
+     -keyalg RSA -keysize 2048 -validity 10000
+   ```
+2. Copy the example properties file and fill in your values:
+   ```bash
+   cp keystore.properties.example keystore.properties
+   # Edit keystore.properties with your keystore path, passwords, and alias
+   ```
+3. Build and install:
+   ```bash
+   ./gradlew assembleRelease
+   # APK is at: app/build/outputs/apk/release/app-release.apk
+   ```
+
+### Automated Releases via GitHub Actions
+
+Push a version tag to trigger an automated signed-APK build and GitHub Release:
+
 ```bash
-./gradlew installRelease
+git tag v1.0.0
+git push origin v1.0.0
 ```
+
+Before the first release, add these secrets to your repository (**Settings → Secrets and variables → Actions**):
+
+| Secret | Description |
+|--------|-------------|
+| `KEYSTORE_BASE64` | Base64-encoded keystore — Linux: `base64 -w 0 release.keystore`, macOS: `base64 -i release.keystore` |
+| `KEYSTORE_PASSWORD` | Keystore password |
+| `KEY_ALIAS` | Key alias (e.g. `notificationfetcher`) |
+| `KEY_PASSWORD` | Key password |
 
 ### Grant Permission
 1. Open the app on your device

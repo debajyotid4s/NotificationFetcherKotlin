@@ -1,0 +1,77 @@
+name: Build & Release APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Decode keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > "${{ github.workspace }}/release.keystore"
+
+      - name: Build signed release APK
+        env:
+          KEYSTORE_PATH: ${{ github.workspace }}/release.keystore
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: ./gradlew assembleRelease
+
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NotificationFetcher-release
+          path: app/build/outputs/apk/release/*.apk
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const apkDir = 'app/build/outputs/apk/release';
+            const apkFiles = fs.readdirSync(apkDir).filter(f => f.endsWith('.apk'));
+
+            const release = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: context.ref.replace('refs/tags/', ''),
+              name: `NotificationFetcher ${context.ref.replace('refs/tags/', '')}`,
+              body: '## Installation\n\n1. Download the `.apk` file attached below.\n2. On your Android device, go to **Settings → Security** and enable **Install from Unknown Sources** (or **Install Unknown Apps** for Android 8+).\n3. Open the downloaded APK file and follow the prompts to install.\n4. Grant **Notification Access** when prompted.\n\n> **Note:** Android may show a Play Protect warning for apps installed outside the Play Store. Tap **Install Anyway** to proceed.',
+              draft: false,
+              prerelease: false
+            });
+
+            for (const apkFile of apkFiles) {
+              const apkPath = path.join(apkDir, apkFile);
+              const apkData = fs.readFileSync(apkPath);
+              await github.rest.repos.uploadReleaseAsset({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: release.data.id,
+                name: apkFile,
+                data: apkData
+              });
+            }
